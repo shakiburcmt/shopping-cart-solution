@@ -50,11 +50,26 @@ function getTextElementValueById(elementId) {
     return costTotal;
 }
 
+function setTextElementValueById(elementId, value) {
+    const subTotal = document.getElementById(elementId);
+    subTotal.innerText = value;
+}
+
 function calculateSubTotal() {
     // calculate total
     const currentPhoneCost = getTextElementValueById('phone-total-price');
     const currentCaseCost = getTextElementValueById('case-total-price');
     const currentSubTotal = currentPhoneCost + currentCaseCost;
-    const subTotal = document.getElementById('sub-total');
-    subTotal.innerText = currentSubTotal;
+    setTextElementValueById('sub-total', currentSubTotal);
+
+
+    // calculate tax
+    const taxAmountString = (currentSubTotal * 0.1).toFixed(2);
+    const taxAmount = parseFloat(taxAmountString);
+    setTextElementValueById('tax', taxAmount);
+
+    // calculate final total
+    const totalAmount = currentSubTotal + taxAmount;
+    setTextElementValueById('total', totalAmount);
+
 }
